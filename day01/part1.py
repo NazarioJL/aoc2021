@@ -4,34 +4,36 @@ import argparse
 import os.path
 
 import pytest
+from more_itertools import pairwise
 
 from support import timing
 
-INPUT_TXT = os.path.join(os.path.dirname(__file__), 'input.txt')
+INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
 
 def compute(s: str) -> int:
     numbers = [int(line) for line in s.splitlines()]
-    for n in numbers:
-        pass
-
-    lines = s.splitlines()
-    for line in lines:
-        pass
-    # TODO: implement solution here!
-    return 0
+    result = sum(0 if a > b else 1 for a, b in pairwise(numbers))
+    return result
 
 
-INPUT_S = '''\
-
-'''
+INPUT_S = """\
+199
+200
+208
+210
+200
+207
+240
+269
+260
+263
+"""
 
 
 @pytest.mark.parametrize(
-    ('input_s', 'expected'),
-    (
-        (INPUT_S, 1),
-    ),
+    ("input_s", "expected"),
+    ((INPUT_S, 7),),
 )
 def test(input_s: str, expected: int) -> None:
     assert compute(input_s) == expected
@@ -39,7 +41,7 @@ def test(input_s: str, expected: int) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('data_file', nargs='?', default=INPUT_TXT)
+    parser.add_argument("data_file", nargs="?", default=INPUT_TXT)
     args = parser.parse_args()
 
     with open(args.data_file) as f, timing():
@@ -48,5 +50,5 @@ def main() -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())
