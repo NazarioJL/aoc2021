@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import os.path
+from typing import Tuple
 
 import pytest
 
@@ -11,25 +12,42 @@ INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
 
 def compute(s: str) -> int:
-    numbers = [int(line) for line in s.splitlines()]
-    for n in numbers:
-        pass
-
     lines = s.splitlines()
+    horizontal = 0
+    depth = 0
+    aim = 0
+
     for line in lines:
-        pass
-    # TODO: implement solution here!
-    return 0
+        verb: str
+        qty_str: str
+        verb, qty_str = line.split()
+        qty = int(qty_str)
+        if verb.casefold() == "forward":
+            horizontal += qty
+            depth += qty * aim
+        elif verb.casefold() == "down":
+            aim += qty
+        elif verb.casefold() == "up":
+            aim -= qty
+        else:
+            raise ValueError(f"Unrecognized verb: '{verb}'")
+
+    return horizontal * depth
 
 
 INPUT_S = """\
-
+forward 5
+down 5
+forward 8
+up 3
+down 8
+forward 2
 """
 
 
 @pytest.mark.parametrize(
     ("input_s", "expected"),
-    ((INPUT_S, 1),),
+    ((INPUT_S, 900),),
 )
 def test(input_s: str, expected: int) -> None:
     assert compute(input_s) == expected
