@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import os.path
-from typing import Tuple
 
 import pytest
 
