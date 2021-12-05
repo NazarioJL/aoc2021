@@ -4,9 +4,9 @@ import argparse
 import os.path
 
 import pytest
-from support import timing
 
 from day04.board import BingoBoard
+from support import timing
 
 INPUT_TXT = os.path.join(os.path.dirname(__file__), "input.txt")
 
@@ -24,7 +24,9 @@ def compute(s: str) -> int:
         start = (6 * board_idx) + 1 + 1  # first line and empty space
         end = start + 5
 
-        board = BingoBoard(board_id=board_idx, numbers={}, rows=[5, 5, 5, 5, 5], cols=[5, 5, 5, 5, 5])
+        board = BingoBoard(
+            board_id=board_idx, numbers={}, rows=[5, 5, 5, 5, 5], cols=[5, 5, 5, 5, 5]
+        )
         boards.append(board)
         board_lines = lines[start:end]
 
