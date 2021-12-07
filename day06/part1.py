@@ -17,11 +17,7 @@ def compute(s: str, days: int) -> int:
     for num in numbers:
         count[num] += 1
 
-    print(count)
-
     for day in range(days):
-        # print(f"Start: {day=}: {sum(count)}, {count=}")
-
         new_fish = count[0]
         new_parents = count[0]
 
@@ -30,10 +26,6 @@ def compute(s: str, days: int) -> int:
 
         count[8] = new_fish
         count[6] += new_parents
-        # print(f"End: {day=}: {sum(count)}, {new_fish=}, {new_parents=} {count=}")
-
-
-
 
     return sum(count)
 
@@ -45,19 +37,23 @@ INPUT_S = """\
 
 @pytest.mark.parametrize(
     ("input_s", "days", "expected"),
-    [(INPUT_S, 80, 5934), (INPUT_S, 256, 5934)]
+    [
+        (INPUT_S, 80, 5934),
+        (INPUT_S, 256, 26984457539),
+    ],
 )
-def test(input_s: str, expected: int) -> None:
-    assert compute(input_s) == expected
+def test(input_s: str, days: int, expected: int) -> None:
+    assert compute(input_s, days) == expected
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("data_file", nargs="?", default=INPUT_TXT)
+    parser.add_argument("-d", default=80)
     args = parser.parse_args()
 
     with open(args.data_file) as f, timing():
-        print(compute(f.read()))
+        print(compute(f.read(), args.d))
 
     return 0
 
