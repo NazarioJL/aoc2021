@@ -80,10 +80,10 @@ def create_signature(code_map: dict[int, str]) -> dict[tuple[int, int, int, int]
     :return: a map of signatures to the original index provided in the code_map
     """
     fixed_length_codes = sorted(
-        [code for code in code_map.values() if len(code) in {2, 4, 3}], key=len
+        (code for code in code_map.values() if len(code) in {2, 4, 3}), key=len
     )  # get the codes that represent the number with unique length (1, 7, 4)
     return {
-        tuple(
+        tuple(  # type: ignore
             [
                 *[
                     len(set(code).intersection(set(fixed)))
@@ -110,7 +110,7 @@ def decode(
     return result
 
 
-def part_1(s) -> int:
+def part_1(s: str) -> int:
     count = 0
     for line in s.splitlines():
         sides = line.split("|")
