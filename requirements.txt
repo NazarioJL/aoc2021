@@ -1,3 +1,6 @@
 -e support
 more-itertools
 pytest
+numpy
+matplotlib
+tensorflow

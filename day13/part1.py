@@ -127,7 +127,13 @@ EXPECTED_OUTPUT_2 = """\
         (INPUT_S, 2, 16, EXPECTED_OUTPUT_2),
     ),
 )
-def test(input_s: str, folds: int, expected: int, expected_output: str, capsys: CaptureFixture) -> None:
+def test(
+    input_s: str,
+    folds: int,
+    expected: int,
+    expected_output: str,
+    capsys: CaptureFixture,
+) -> None:
     assert compute(input_s, folds) == expected
     assert capsys.readouterr().out == expected_output
 

@@ -188,7 +188,7 @@ def parse(packet_data: str) -> Packet | PacketLiteral | tuple[PacketLiteral, Pac
             else:
                 raise ValueError(f"Cannot understand {packet_length_type}")
 
-            number = int(data[idx: idx + chunk_size], 2)
+            number = int(data[idx : idx + chunk_size], 2)
             idx += chunk_size
 
             if packet_length_type == PacketLengthTypeId.TotalLengthOfSubPackets:

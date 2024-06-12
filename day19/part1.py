@@ -6,7 +6,7 @@ import os.path
 from collections import deque
 from functools import reduce, cache
 from itertools import combinations
-from typing import cast, Callable, Iterable
+from typing import cast, Callable, Iterable, TypeVar, Union
 
 import pytest
 
@@ -194,8 +194,10 @@ def compute(s: str) -> int:
             queue.appendleft((scanner_idx, beacons))
             unmergable_count += 1
             if unmergable_count == len(queue):
-                raise ValueError(f"Unable to merge any beacons, unmergable scanner "
-                                 f"counts = {len(queue)}")
+                raise ValueError(
+                    f"Unable to merge any beacons, unmergable scanner "
+                    f"counts = {len(queue)}"
+                )
 
     max_distance = 0
     for a, b in combinations(scanner_locations, 2):
@@ -421,3 +423,11 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+TNode = TypeVar("TNode", bound=tuple)
+Node = Union[tuple[int, TNode], tuple[TNode, int], tuple[TNode, TNode], tuple[int, int]]
+
+v: Node = (1, (1, 2))
+
+Number = Union[int, "Number"]

@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import argparse
 import os.path
-from _heapq import heappush, heappushpop
+from _heapq import heappush
+from _heapq import heappushpop
 from typing import Iterable
 
 import pytest
